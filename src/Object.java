@@ -52,36 +52,40 @@ public class Object {
     }
 
 
-    public static void toCSVDataRecord(Object obj) {
+    public static void toCSVDataRecord(Path filePath, ArrayList<String> records) {
         // Method that writes records from ArrayList to CSV file
 
-        // Gets current working directory and specifies file to write to
+        // IMPORTANT: Gets current working directory and specifies file to write to
+        // Best to put outside this method
+        /*
         File workingDirectory = new File(System.getProperty("user.dir"));
         Path file = Paths.get(workingDirectory.getPath() + "\\src\\TestData.txt");
+       */
 
-        // Initializes ArrayList to temporarily store object data
-        ArrayList<String>Array = new ArrayList<>();
-
-        // Modify as needed to store object attributes as writeable string
-        String record = (obj.getID() + ", " + obj.getName() + ", " + obj.getDescription() + ", " + obj.getProperty());
-        Array.add(record);
+        // IMPORTANT: 'StringBuilder'; modify as needed to store object records in Array as CSV writeable string
+        /*
+        for (Object obj : records) {
+        String record = String.format("%s, %s, %s, %s", obj.getID(), obj.getName(), obj.getDescription(), obj.getProperty());
+        records.add(record);
+        */
 
         try
         {
             // Typical java pattern of inherited classes
             // Wrap a BufferedWriter around a lower level BufferedOutputStream
             OutputStream out =
-                    new BufferedOutputStream(Files.newOutputStream(file, CREATE));
+                    new BufferedOutputStream(Files.newOutputStream(filePath, CREATE));
             BufferedWriter writer =
                     new BufferedWriter(new OutputStreamWriter(out));
 
             // Writes the file for each line in the array
-            for(String rec : Array)
+            for(String rec : records)
             {
-                writer.write(rec, 0, rec.length());  // syntax for write rec
-                // 0 is where to start (1st char) the write
+                // Syntax for write rec:
+                // 0 is where to start write (1st char)
                 // rec. length() is how many chars to write (all)
-                writer.newLine();  // adds new line
+                writer.write(rec, 0, rec.length());
+                writer.newLine();
             }
 
             writer.close(); // must close the file to seal it and flush buffer
