@@ -52,22 +52,25 @@ public class Object {
     }
 
 
-    public static void toCSVDataRecord(Path filePath, ArrayList<String> records) {
-        // Method that writes records from ArrayList to CSV file
+    // IMPORTANT: Gets current working directory and specifies file to write to
 
-        // IMPORTANT: Gets current working directory and specifies file to write to
-        // Best to put outside this method
         /*
         File workingDirectory = new File(System.getProperty("user.dir"));
         Path file = Paths.get(workingDirectory.getPath() + "\\src\\TestData.txt");
-       */
+        */
 
-        // IMPORTANT: 'StringBuilder'; modify as needed to store object records in Array as CSV writeable string
+    // IMPORTANT: 'StringBuilder'; modify as needed to store object records in Array as CSV writeable string
+    // All should be contained in loop of some kind to add all object records
+
         /*
-        for (Object obj : records) {
+        ArrayList<String> records = new ArrayList
         String record = String.format("%s, %s, %s, %s", obj.getID(), obj.getName(), obj.getDescription(), obj.getProperty());
         records.add(record);
         */
+
+    public static void toCSVDataRecord(Path filePath, ArrayList<String> array) {
+
+        // Method that writes records from ArrayList to CSV file
 
         try
         {
@@ -79,7 +82,7 @@ public class Object {
                     new BufferedWriter(new OutputStreamWriter(out));
 
             // Writes the file for each line in the array
-            for(String rec : records)
+            for(String rec : array)
             {
                 // Syntax for write rec:
                 // 0 is where to start write (1st char)
